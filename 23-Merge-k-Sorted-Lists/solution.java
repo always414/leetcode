@@ -36,7 +36,10 @@ public class Solution {
         });
         
         for (ListNode list : lists) {
-        	queue.add(list);
+        	if (list != null) {
+        		//corner case: list can be null!!!!!!!!
+        		queue.add(list);
+        	}
         }
         
         while (!queue.isEmpty()) {
