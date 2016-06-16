@@ -11,6 +11,13 @@ import java.util.PriorityQueue;
  */
 public class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
+    	if (lists == null || lists.length == 0) {
+    		return null;
+    	}
+    	
+    	if (lists.length == 1) {
+    		return lists[0];
+    	}
     	// utilize heap to store the smallest node, and merge
     	// constant space (length of lists) and O(logN) time for every insert;
         ListNode dummy = new ListNode(0);
