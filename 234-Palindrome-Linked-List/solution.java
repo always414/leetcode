@@ -11,7 +11,7 @@ public class Solution {
         // reverse half list and compare
     	// O(cn) time and O(1) space
     	if (head == null) {
-    		return false;
+    		return true;
     	}
     	
     	if (head.next == null) {
@@ -25,7 +25,8 @@ public class Solution {
     	middle.next = null; // break the list into halves
     	right = reverse(right);
     	
-    	while (left != null) {
+    	// right half may have one less node
+    	while (right != null) {
     		if (left.val != right.val) {
     			return false;
     		} 
