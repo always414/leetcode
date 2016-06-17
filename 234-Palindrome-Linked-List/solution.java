@@ -10,9 +10,14 @@ public class Solution {
     public boolean isPalindrome(ListNode head) {
         // reverse half list and compare
     	// O(cn) time and O(1) space
-    	if (head == null || head.next == null) {
+    	if (head == null) {
+    		return false;
+    	}
+    	
+    	if (head.next == null) {
     		return true;
     	}
+    	
     	ListNode middle = findMiddle(head);
     	
     	ListNode left = head;
@@ -24,6 +29,8 @@ public class Solution {
     		if (left.val != right.val) {
     			return false;
     		} 
+    		left = left.next;
+    		right = right.next;
     	}
     	
     	return true;
