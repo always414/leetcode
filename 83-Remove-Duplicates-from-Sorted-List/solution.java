@@ -26,6 +26,7 @@ public class Solution {
         	} else {
         		pre.next = pointer;
         		lastNumber = pointer.val;
+        		pointer = pointer.next;
         	}
         }
         
