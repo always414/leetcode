@@ -8,6 +8,9 @@
  */
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
+    	if (head == null) {
+    		return null;
+    	}
         ListNode fast = head, slow = head;
         
         while (k > 0) {
