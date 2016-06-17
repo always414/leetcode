@@ -8,28 +8,40 @@
  */
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-    	if (head == null || head.next == null) {
+    	if (head == null) {
     		return null;
+    	}
+    	if (k == 0) {
+    		return head;
     	}
     	
     	ListNode dummy = new ListNode(0);
-    	dummy.next = head;
     	
         ListNode fast = head, slow = head;
         
         while (k > 0) {
         	fast = fast.next;
         	k--;
+        	// deal with some corner cases
+        	if (fast == null && k == 0) {
+        		return head;
+        	}
+        	
+        	if (fast == null && k > 0) {
+        		fast = head;
+        	}
         }
         
+       
+
         while (fast.next != null) {
         	fast = fast.next;
         	slow = slow.next;
         }
         
         dummy.next = slow.next;
-        fast.next = head;
         slow.next = null;
+        fast.next = head;
         
         return dummy.next;
     	
