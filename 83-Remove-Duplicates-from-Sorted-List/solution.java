@@ -12,26 +12,21 @@ public class Solution {
     		return head;
     	}
     	
-        ListNode dummy = new ListNode(0);
-        ListNode pointer = dummy;
-        ListNode pre = dummy;
+        ListNode curr = head.next;
+        ListNode pre = head;
         
-        dummy.next = head;
-        
-        int lastNumber = head.val;
-        
-        while (pointer != null) {
-        	if (lastNumber == pointer.val) {
-        		pointer = pointer.next;
+        while (curr != null) {
+        	if (curr.val == pre.val) {
+        		// 1(pre) -> 1(curr) -> 2
+        		pre.next = curr.next;
+        		curr = curr.next; // 1 (pre) -> 2(curr)
+        		
         	} else {
-        		pre.next = pointer;
-        		lastNumber = pointer.val;
-        		pointer = pointer.next;
+        		// 1(pre) -> 2(curr) -> 3
+        		pre = pre.next;
+        		curr = curr.next; // 1 -> 2 (pre) -> 3(curr)
         	}
         }
-        
-        pre.next = pointer;
-        
-        return dummy.next;
+        return head;
     }
 }
