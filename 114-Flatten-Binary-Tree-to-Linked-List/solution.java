@@ -11,13 +11,23 @@ public class Solution {
 		if (root.left == null && root.right == null)
 			return root;
 
+		if (root.left == null && root.right != null) {
+			return root.right;
+		}
+		
+		if (root.left != null && root.right == null) {
+			root.right = root.left;
+			root.left = null;
+			return root.right;
+		}
+		
 		TreeNode left = flattenHelper(root.left);
 		left.right = root.right;
-//		TreeNode right = flattenHelper(root.right);
-		root.right = left;
+		root.right = root.left;
 		root.left = null;
+		TreeNode end = flattenHelper(left.right);
 		
-		return left.right;
+		return end;
 	}
 
 	
