@@ -22,7 +22,7 @@ public class Solution {
         		}
         		
         		if (p.charAt(j-1) == '*') {
-        			if (p.charAt(j-1) != s.charAt(i-1) && p.charAt(i-1) != '.') {
+        			if (p.charAt(j-2) != s.charAt(i-1) && p.charAt(j-2) != '.') {
         				//empty case
         				matrix[i][j] = matrix[i][j-2];
         			} else {
