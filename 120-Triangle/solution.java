@@ -12,19 +12,17 @@ public class Solution {
     		return triangle.get(0).get(0);
     	}
     	
-        List<Integer> result = new ArrayList<>(triangle.size());
-        Collections.fill(result, 0);
-        result.set(0, triangle.get(0).get(0));
-        
         for (int i = 1; i < triangle.size(); i++) {
         	for (int j = 0; j <= i; j++) {
         		if (j == 0) {
-        			result.set(j, triangle.get(i - 1).get(j) + triangle.get(i).get(j)); 
+        			triangle.get(i).set(j, triangle.get(i-1).get(j) + triangle.get(i).get(j)); //last level j + current level j
+        		} else if (j == i){
+        			triangle.get(i).set(j, triangle.get(i-1).get(j-1) + triangle.get(i).get(j)); // last level j-1 + current level j
         		} else {
-        			result.set(j, triangle.get(i).get(j) + Math.min(triangle.get(i-1).get(j), triangle.get(i-1).get(j-1)));
+        			triangle.get(i).set(j, triangle.get(i).get(j) + Math.min(triangle.get(i-1).get(j), triangle.get(i-1).get(j-1)));
         		}
         	}
         }
-        return Collections.min(result);
+        return Collections.min(triangle.get(triangle.size()-1));
     }
 }
