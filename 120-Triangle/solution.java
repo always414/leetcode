@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Solution {
     	}
     	
         List<Integer> result = new ArrayList<>(triangle.size());
+        Collections.fill(result, 0);
         result.set(0, triangle.get(0).get(0));
         
         for (int i = 1; i < triangle.size(); i++) {
