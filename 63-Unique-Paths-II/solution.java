@@ -1,8 +1,9 @@
 public class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-    	if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0][0] == 0) {
+    	if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0][0] == 1) {
     		return 0;
     	}
+    	
     	
     	int[][] matrix = new int[obstacleGrid.length][obstacleGrid[0].length];
     	matrix[0][0] = 1;
