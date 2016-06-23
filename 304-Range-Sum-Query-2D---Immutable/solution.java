@@ -31,7 +31,7 @@ public class NumMatrix {
 			return 0;
 		}
 
-		if (row1 == 0 && col2 == 0) {
+		if (row1 == 0 && col1 == 0) {
 			return sum[row2][col2];
 		}
 
