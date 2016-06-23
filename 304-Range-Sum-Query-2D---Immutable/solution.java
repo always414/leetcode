@@ -1,6 +1,9 @@
 public class NumMatrix {
 	int[][] sum;
     public NumMatrix(int[][] matrix) {
+    	if (matrix == null || matrix.length == 0) {
+    		sum = null;
+    	}
        sum = new int[matrix.length][matrix[0].length];
        sum[0][0] = matrix[0][0];
        for (int i = 1; i < matrix.length; i++) {
@@ -19,6 +22,9 @@ public class NumMatrix {
     }
 
     public int sumRegion(int row1, int col1, int row2, int col2) {
+    	if (sum == null) {
+    		return 0;
+    	}
     	if (!isValid(row1, col1, row2, col2)) {
     		return 0;
     	}
