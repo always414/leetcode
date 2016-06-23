@@ -4,7 +4,6 @@ public class Solution {
     		return 0;
     	}
     	
-    	
     	int[][] matrix = new int[obstacleGrid.length][obstacleGrid[0].length];
     	matrix[0][0] = 1;
     	
@@ -33,6 +32,6 @@ public class Solution {
     		}
     	}
         
-        return matrix[matrix.length][matrix[0].length];
+        return matrix[matrix.length-1][matrix[0].length-1];
     }
 }
