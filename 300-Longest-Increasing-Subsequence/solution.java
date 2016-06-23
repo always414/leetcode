@@ -10,15 +10,15 @@ public class Solution {
         Arrays.fill(length, 1);
         
         for (int i = 1; i < nums.length; i++) {
-        	for (int j = i-1; j >=0; j++) {
+        	for (int j = i-1; j >=0; j--) {
         		if (nums[j] < nums[i]) {
-        			length[j] += length[i];
-        			break;
+        			length[i] = Math.max(length[j] + 1, length[i]);
+        			
         		}
         	}
         	maxLength = Math.max(maxLength, length[i]);
         }
         
-        return length[length.length-1];
+        return maxLength;
     }
 }
