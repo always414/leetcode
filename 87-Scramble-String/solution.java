@@ -4,9 +4,13 @@ public class Solution {
 			return true;
 		}
 
+		
 		for (int i = 1; i < s1.length(); i++) {
 			// compare every substring from (0,i) (i,length)
 			// if true, return result;
+			if (!s2.contains("" + s1.charAt(i-1))) {
+				return false;
+			}
 			if (isScramble(s1.substring(0, i), s2.substring(0, i)) 
 					&& isScramble(s1.substring(i), s2.substring(i))) {
 				return true;
