@@ -16,15 +16,13 @@ public class Solution {
     		return;
     	}
     	
-    	for (int i = 1; i <= s.length(); i++) {
-    		if (wordDic.contains(s.substring(0, i))) {
+    	for (String word : wordDic) {
+    		if (s.startsWith(word)) {
     			solution.append(" ");
-    			solution.append(s.substring(0, i));
-    			helper(list, s.substring(i), wordDic, solution);
-    			solution.delete(solution.length() - i - 1, solution.length()); // back track
+    			solution.append(word);
+    			helper(list, s.substring(word.length()), wordDic, solution);
+    			solution.delete(solution.length() - word.length() - 1, solution.length());
     		}
     	}
-    	
-    	
     }
 }
