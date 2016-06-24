@@ -3,14 +3,15 @@ public class Solution {
 		if (s2.equals(s1)) {
 			return true;
 		}
-
+		int[] letters = new int[26];
+        for (int i=0; i<s1.length(); i++) {
+            letters[s1.charAt(i)-'a']++;
+            letters[s2.charAt(i)-'a']--;
+        }
 		
 		for (int i = 1; i < s1.length(); i++) {
 			// compare every substring from (0,i) (i,length)
 			// if true, return result;
-			if (!s2.contains("" + s1.charAt(i-1))) {
-				return false;
-			}
 			if (isScramble(s1.substring(0, i), s2.substring(0, i)) 
 					&& isScramble(s1.substring(i), s2.substring(i))) {
 				return true;
