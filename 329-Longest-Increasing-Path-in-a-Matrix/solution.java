@@ -1,6 +1,9 @@
 public class Solution {
 	int globalLongest = 0;
     public int longestIncreasingPath(int[][] matrix) {
+        	if (matrix.length == 0 || matrix[0].length == 0) {
+    		return 0;
+    	}
         int[][] dp = new int[matrix.length][matrix[0].length];
         helper(dp, matrix, 0, 0);
         return globalLongest;
