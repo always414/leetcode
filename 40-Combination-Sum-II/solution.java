@@ -21,12 +21,22 @@ public class Solution {
     	}
     	
     	for (int i = index; i < candidates.length; i++) {
+
     		if (candidates[i] > target) {
     			break;
     		}
     		list.add(candidates[i]);
-    		helper(result, list, candidates, target - candidates[i], i);
+    		helper(result, list, candidates, target - candidates[i], i + 1);
     		list.remove(list.size() - 1);
+    		
+    		while (i < candidates.length - 1) {
+    			if (candidates[i] == candidates[i+1]) {
+    				i++;
+    			} else {
+    				break;
+    			}
+    		}
+    		
     	}
     }
 }
