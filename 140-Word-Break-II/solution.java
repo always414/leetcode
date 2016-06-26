@@ -22,7 +22,7 @@ public class Solution {
     			solution.append(word);
     			helper(list, s.substring(word.length()), wordDic, solution);
     			solution.delete(solution.length() - word.length() - 1, solution.length());
-    		}
+    		} 
     	}
     }
 }
