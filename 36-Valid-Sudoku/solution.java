@@ -9,6 +9,7 @@ public class Solution {
 		for (int i = 0; i < 9; i++) {
 			Arrays.fill(row, false); // reset row for every updating i;
 			Arrays.fill(col, false);
+			Arrays.fill(cube, false);
 			for (int j = 0; j < 9; j++) {
 				if (board[i][j] != '.') {
 					int num = board[i][j] - '0';
@@ -34,6 +35,6 @@ public class Solution {
 			}
 		}
 
-		return true;	
+			return true;
 	}
 }
