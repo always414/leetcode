@@ -28,7 +28,7 @@ public class Solution {
 				int colIndex = 3 * (i%3);//0,1,2,0,1,2,0,1,2
 				
 				if (board[rowIndex + j/3][colIndex + j%3] != '.') {
-					int num = board[rowIndex + j/3][colIndex + j%3];
+					int num = board[rowIndex + j/3][colIndex + j%3] - '0';
 					if (cube[num]) return false;
 					cube[num] = true;
 				}
