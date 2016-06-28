@@ -1,36 +1,28 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-    	Arrays.sort(nums);
-    	List<List<Integer>> res = new ArrayList<>();
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (nums[i] > 0) {
-                break;
-            }
-        	for (int j = nums.length - 1; j > i + 1; j -- ) {
-        		for (int k = i + 1; k < j; k ++) {
-        			if (nums[i] + nums[j] + nums[k] > 0) {
-        				break;
-        			} else if (nums[i] + nums[j] + nums[k] == 0) {
-        				res.add(Arrays.asList(nums[i], nums[k], nums[j]));
-        			}
-        			
-        			while (k < j - 1 && nums[k] == nums[k + 1]) {
-        				k++;
-        			}
-        		}
-        		while (j > i + 2 && nums[j] == nums[j-1]) {
-        			j--;
-        		}
-        	}
-        	while (i < nums.length - 3 && nums[i] == nums[i+1]) {
-        		i++;
-        	}
-        }
-        
+public List<List<Integer>> threeSum(int[] A) {
+    List<List<Integer>>res = new ArrayList<List<Integer>>();
+    if (A == null || A.length == 0)
         return res;
+    Arrays.sort(A);
+    for (int i = 0; i < A.length; i++) {
+        if (i - 1 >= 0 && A[i] == A[i - 1]) continue;// Skip equal elements to avoid duplicates
+
+        int left = i + 1, right = A.length - 1; 
+        while (left < right) {// Two Pointers
+            int sum = A[i] + A[left] + A[right];
+            if (sum == 0) { 
+                res.add(Arrays.asList(A[i], A[left], A[right]));
+                while (left + 1 < right && A[left] == A[left+1])// Skip equal elements to avoid duplicates
+                    left++;
+                while (right -1 > left && A[right] == A[right-1])// Skip equal elements to avoid duplicates
+                    right--;
+                left++; 
+                right--;
+            } else if (sum < 0) { 
+                left++;
+            } else {
+                right--;
+            }
+        }
     }
+    return res;
 }
