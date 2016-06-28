@@ -12,7 +12,7 @@ public class Solution {
         			if (nums[i] + nums[j] + nums[k] > 0) {
         				break;
         			} else if (nums[i] + nums[j] + nums[k] == 0) {
-        				res.add(new ArrayList<Integer>(Arrays.asList(nums[i], nums[k], nums[j])));
+        				res.add(Arrays.asList(nums[i], nums[k], nums[j]));
         			}
         			
         			while (k < j - 1 && nums[k] == nums[k + 1]) {
