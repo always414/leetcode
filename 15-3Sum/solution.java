@@ -1,4 +1,9 @@
-public List<List<Integer>> threeSum(int[] A) {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Solution {
+   public List<List<Integer>> threeSum(int[] A) {
     List<List<Integer>>res = new ArrayList<List<Integer>>();
     if (A == null || A.length == 0)
         return res;
@@ -25,4 +30,5 @@ public List<List<Integer>> threeSum(int[] A) {
         }
     }
     return res;
+}
 }
