@@ -30,8 +30,16 @@ public class Solution {
     			if (points[i].x == points[j].x && points[i].y ==points[j].y) {
     				overlap ++;
     			} else {
-    				double k = (points[j].y - points[i].y) / (points[j].x - points[i].x);
-    				double c = points[i].y - points[i].x * k;
+    				double k = 0;
+    				double c = 0;
+    				if (points[i].x == points[j].x) {
+    					k = Double.MAX_VALUE;
+    				} else if (points[i].y == points[j].y) {
+    					c = points[i].y;
+    				} else {
+    					k = (points[j].y - points[i].y) / (points[j].x - points[i].x);
+    					c = points[i].y - points[i].x * k;
+    				}
     				int hashVal = Objects.hash(k, c);
     				map.put(hashVal, map.getOrDefault(hashVal, 0) + 1);
     			}
