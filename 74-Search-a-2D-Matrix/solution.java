@@ -1,5 +1,5 @@
 public class Solution {
-    public boolean searchMatrix(int[][] matrix, int target) {
+	public boolean searchMatrix(int[][] matrix, int target) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
         	return false;
         }
@@ -9,12 +9,8 @@ public class Solution {
         
         while (start + 1 < end) {
         	int mid = start + (end - start)/2;
-        	x = mid / matrix.length;
-        	y = mid % matrix.length;
-        	
-        	if (x < 0|| y < 0) {
-        		return false;
-        	}
+        	x = mid / matrix[0].length;
+        	y = mid % matrix[0].length;
         	
         	if (matrix[x][y] == target) {
         		return true;
@@ -25,20 +21,12 @@ public class Solution {
         	}
         }
         
-        x = start / matrix.length;
-        y = start % matrix.length;
         
-        if (x >= 0 && y >= 0 && matrix[x][y] == target ){
+        if (matrix[start / matrix[0].length][ start % matrix[0].length] == target ){
         	return true;
-        }
-        
-        x = end / matrix.length;
-        y = end % matrix.length;
-        
-        if (x >= 0 && y >= 0 && matrix[x][y] == target ){
+        } else if (matrix[end / matrix[0].length][ end % matrix[0].length] == target ){
         	return true;
         }
 
-        return false;
-    }
-}
+	return false;
+}}
