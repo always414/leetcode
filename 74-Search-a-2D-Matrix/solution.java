@@ -1,46 +1,44 @@
 public class Solution {
-	public boolean searchMatrix(int[][] matrix, int target) {
-		// first find range of row index -> convert to -> find the largest number smaller than target on matrix[i][0]
-		int startRow = 0, endRow = matrix.length - 1;
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+        	return false;
+        }
+        
+        int start = 0, end = matrix.length * matrix[0].length - 1;
+        int x, y;
+        
+        while (start + 1 < end) {
+        	int mid = start + (end - start)/2;
+        	x = mid / matrix.length;
+        	y = mid % matrix.length;
+        	
+        	if (x < 0|| y < 0) {
+        		return false;
+        	}
+        	
+        	if (matrix[x][y] == target) {
+        		return true;
+        	} else if (matrix[x][y] < target ) {
+        		start = mid;
+        	} else {
+        		end = mid;
+        	}
+        }
+        
+        x = start / matrix.length;
+        y = start % matrix.length;
+        
+        if (x >= 0 && y >= 0 && matrix[x][y] == target ){
+        	return true;
+        }
+        
+        x = end / matrix.length;
+        y = end % matrix.length;
+        
+        if (x >= 0 && y >= 0 && matrix[x][y] == target ){
+        	return true;
+        }
 
-		while (startRow + 1 < endRow) {
-			int midRow = startRow + (endRow - startRow) / 2;
-			if (matrix[midRow][0] < target) {
-				startRow = midRow;
-			} else if (matrix[midRow][0] > target) {
-				endRow = midRow;
-			} else {
-				return true;
-			}
-		}
-
-		
-		if (matrix[startRow][0] == target || matrix[endRow][0] == target ) {
-			return true;
-		}
-		
-		int rowIndex = 0;
-		if (matrix[endRow][0] < target) {
-			rowIndex = endRow;
-		} else {
-			rowIndex = matrix[startRow][0] < target? startRow : startRow - 1;
-		}
-		
-		if (rowIndex < 0) return false;
-		
-		// second find the location of col index
-		int startCol = 0, endCol = matrix[0].length - 1;
-		while (startCol + 1 < endCol) {
-			int midCol = startCol + (endCol - startCol) / 2;
-			if (matrix[rowIndex][midCol] == target) {
-				return true;
-			} else if (matrix[rowIndex][midCol] < target ){
-				startCol = midCol;
-			} else {
-				endCol = midCol;
-			}
-		}
-		
-		return matrix[rowIndex][startCol] == target || matrix[rowIndex][endCol] == target;
-	}
+        return false;
+    }
 }
