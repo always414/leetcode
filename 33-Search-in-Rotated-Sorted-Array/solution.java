@@ -6,31 +6,23 @@ public class Solution {
 			if (target == nums[mid]) {
 				return mid;
 			}
-			
-			if (nums[start] < nums[end]) {
-				if (target < nums[mid]) {
+
+			if (nums[mid] > nums[start]) {
+				if (nums[start] <= target && target < nums[mid]) {
 					end = mid;
 				} else {
+					System.out.println("heh");
 					start = mid;
 				}
 			} else {
-				if (nums[mid] > nums[start]) {
-					if (nums[start] <= target && target < nums[mid]) {
-						end = mid;
-					} else {
-						System.out.println("heh");
-						start = mid;
-					}
+				if (nums[mid] < target && target <= nums[end]) {
+					start = mid;
 				} else {
-					if (nums[mid] < target && target <= nums[end]) {
-						start = mid;
-					} else {
-						end = mid;
-					}
+					end = mid;
 				}
 			}
 		}
-System.out.println(start + " " + end);
+		System.out.println(start + " " + end);
 		return nums[start] == target ? start : nums[end] == target ? end : -1;
 
 	}
