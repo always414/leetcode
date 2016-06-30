@@ -11,7 +11,6 @@ public class Solution {
 				if (nums[start] <= target && target < nums[mid]) {
 					end = mid;
 				} else {
-					System.out.println("heh");
 					start = mid;
 				}
 			} else {
@@ -22,9 +21,7 @@ public class Solution {
 				}
 			}
 		}
-		System.out.println(start + " " + end);
 		return nums[start] == target ? start : nums[end] == target ? end : -1;
-
 	}
 
 }
