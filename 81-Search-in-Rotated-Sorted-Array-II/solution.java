@@ -3,6 +3,7 @@ public class Solution {
 		int start = 0, end = nums.length - 1;
 		while (start + 1 < end) {
 
+			//去重
 			while (start + 1 < end && nums[start] == nums[start + 1]) {
 				start ++;
 			}
@@ -10,7 +11,7 @@ public class Solution {
 			while (start + 1 < end && nums[end] == nums[end - 1]) {
 				end --;
 			}
-			
+			//去尾
 			if (nums[start] == nums[end]) {
 				end -= 1;
 			}
@@ -20,15 +21,15 @@ public class Solution {
 			}
 			
 			int mid = start + (end - start) / 2;
-			
 			if (nums[mid] > nums[start]) {
-				if (nums[start] <= target && target < nums[mid]) {
+				if (nums[start] <= target && target <= nums[mid]) {
 					end = mid;
 				} else {
 					start = mid;
 				}
 			} else {
-				if (nums[mid] < target && target <= nums[end]) {
+//				System.out.println(start + " " + mid + " "  + end);
+				if (nums[mid] <= target && target <= nums[end]) {
 					start = mid;
 				} else {
 					end = mid;
