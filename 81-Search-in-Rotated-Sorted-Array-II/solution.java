@@ -15,7 +15,7 @@ public class Solution {
 				end -= 1;
 			}
 			
-			if (start == end || start + 1 == end) {
+			if (start + 1 == end) {
 				return nums[start] == target || nums[end] == target;
 			}
 			
