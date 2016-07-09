@@ -13,6 +13,10 @@ import java.util.Map;
 public class Solution {
 	Map<Integer, UndirectedGraphNode> map = new HashMap<>();
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+    	if (node == null) {
+    		return null;
+    	}
+    		
     	UndirectedGraphNode cloneNode = new UndirectedGraphNode(node.label);
     	
         if (!map.containsKey(node.label)) {
