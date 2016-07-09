@@ -24,10 +24,13 @@ public class Solution {
         	depth ++;
         	
         	while (size > 0) {
-        		if (root.left == null && root.right == null) return depth + 1;
-        		
-        		queue.add(root.left);
-        		queue.add(root.right);
+        		TreeNode node = queue.poll();
+        		if (node.left == null && node.right == null) return depth;
+        		if (node.left != null)
+        			queue.add(node.left);	
+        		if (node.right != null)
+        			queue.add(node.right);
+        		size --;
         	}
         }
         
