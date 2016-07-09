@@ -16,26 +16,29 @@ import java.util.Queue;
 public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> subList = new ArrayList<>();
-        
         Queue<TreeNode> level = new ArrayDeque<>();
+        
         level.offer(root);
         
         while (!level.isEmpty()) {
-        	TreeNode node = level.poll();
-        	if (node != null) {
-        		level.offer(node.left);
-        		level.offer(node.right);
+        	int size = level.size();
+        	List<Integer> subList = new ArrayList<>();
+
+        	while (size > 0) {
+        		TreeNode node = level.poll();
         		subList.add(node.val);
-        	} else {
-        		res.add(new ArrayList<>(subList));
-        		subList.clear();
-        		if (level.isEmpty()) {
-        			break;
-        		} else {
-        			level.add(null);
+        		if (node.left != null) {
+        			level.add(node.left);
         		}
+        		
+        		if (node.right != null) {
+        			level.add(node.right);
+        		}
+        		
+        		size --;
         	}
+        	
+        	res.add(subList);
         }
         
         return res;
