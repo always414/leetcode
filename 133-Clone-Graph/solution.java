@@ -21,6 +21,8 @@ public class Solution {
     	
         if (!map.containsKey(node.label)) {
         	map.put(node.label, cloneNode);
+        } else {
+        	return map.get(node.label);
         }
         
         for (UndirectedGraphNode neighbor : node.neighbors) {
