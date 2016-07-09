@@ -15,6 +15,9 @@ import java.util.Queue;
  */
 public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
+        if (root == null) {
+            return new ArrayList();
+        }
         List<List<Integer>> res = new ArrayList<>();
         Queue<TreeNode> level = new ArrayDeque<>();
         
