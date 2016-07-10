@@ -15,7 +15,7 @@ import java.util.Queue;
 public class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         if (root == null) {
-        	return null;
+        	return new ArrayList();
         }
         List<Integer> res = new ArrayList<>();
         Queue<TreeNode> queue = new ArrayDeque<>();
@@ -36,6 +36,7 @@ public class Solution {
         		} else {
         			queue.poll();
         		}
+        		size --;
         	}
         	
         }
