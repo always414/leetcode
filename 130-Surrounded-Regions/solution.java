@@ -35,7 +35,7 @@ public class Solution {
     }
     
     private void paintHelper(char[][] board, int i, int j, char c) {
-    	if (i < 0 || j < 0 || i > board.length || j > board[0].length || board[i][j] == 'X') {
+    	if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] == 'X') {
     		return;
     	}
     	
