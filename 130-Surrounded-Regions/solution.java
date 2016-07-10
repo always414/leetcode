@@ -6,12 +6,13 @@ public class Solution {
     	if (board == null || board.length == 0 || board[0].length == 0) {
     		return ;
     	}
-        for (int i = 0; i < board.length; i += board.length - 1) {
+        for (int i = 0; i < board.length; ) {
         	for (int j = 0; j < board[0].length; j++) {
         		if (board[i][j] == 'O') {
         			paintHelper(board, i, j, 'B');
         		}
         	}
+        	i += board.length ;
         }
         
         for (int j = 0; j < board[0].length; j+= board[0].length - 1) {
@@ -20,6 +21,7 @@ public class Solution {
         			paintHelper(board, i, j, 'B');
         		}
         	}
+        	j += board[0].length;
         }
         
         for (int i = 0; i < board.length; i++) {
