@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 public class Solution {
 	public void rotate(int[] nums, int k) {
+	    		if (k == 0 || nums.length == 1 || nums.length == 0) return;
+
 		int n = nums.length;
 		int index = 0;
 		int prev = nums[index];
