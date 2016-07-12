@@ -2,8 +2,7 @@ import java.util.Arrays;
 
 public class Solution {
 	public void rotate(int[] nums, int k) {
-	    		if (k == 0 || nums.length == 1 || nums.length == 0) return;
-
+		if (k == 0 || nums.length == 1 || nums.length == 0) return;
 		int n = nums.length;
 		int index = 0;
 		int prev = nums[index];
@@ -18,7 +17,7 @@ public class Solution {
 			count ++;
 			
 			if (index == startIndex) {
-				index ++;
+				index = (index + 1) % n;
 				startIndex = index;
 				prev = nums[index];
 			}
