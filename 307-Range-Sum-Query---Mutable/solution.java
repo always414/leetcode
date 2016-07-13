@@ -6,7 +6,7 @@ public class NumArray {
 
 	public NumArray(int[] nums) {
 //		O(n) initialize
-
+        sums = new int[nums.length];
 	    this.nums = nums;
 	    sums[0] = nums[0];
 		for (int i=1;i<nums.length;i++) {
