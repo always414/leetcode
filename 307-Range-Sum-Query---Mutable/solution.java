@@ -1,17 +1,4 @@
 public class NumArray {
-
-    public NumArray(int[] nums) {
-        
-    }
-
-    void update(int i, int val) {
-        
-    }
-
-    public int sumRange(int i, int j) {
-        
-    }
-}public class NumArray {
 	private int st[];
 	private int[] nums;
     public NumArray(int[] nums) {
