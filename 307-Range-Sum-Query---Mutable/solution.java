@@ -1,80 +1,79 @@
+import java.util.Arrays;
+
 public class NumArray {
-	private int st[];
-	private int[] nums;
-
-	public NumArray(int[] nums) {
-		int n = nums.length;
-		this.nums = nums;
-		int x = (int) (Math.ceil(Math.log(n) / Math.log(2)));
-		int maxSize = 2 * (int) Math.pow(2, x) - 1;
-		st = new int[maxSize];
-		constructSTUtil(nums, 0, n - 1, 0);
-	}
-
-	private int constructSTUtil(int nums[], int ss, int se, int si) {
-		if (ss == se) {
-			st[si] = nums[ss];
-			return nums[ss];
-		}
-
-		int mid = getMid(ss, se);
-		st[si] = constructSTUtil(nums, ss, mid, si * 2 + 1) 
-				+ constructSTUtil(nums, mid + 1, se, si * 2 + 2);
+	class SegmentTreeNode {
+		int start, end;
+		SegmentTreeNode left, right;
+		int sum;
 		
-		return st[si];
-	}
-
-	private int getMid(int ss, int se) {
-		return ss + (se - ss) / 2;
-	}
-
-	public void update(int i, int val) {
-		if (i < 0 || i > nums.length - 1) {
-			return;
-		}
-
-		int diff = val - nums[i];
-		updateValueUntil(0, nums.length - 1, i, diff, 0);
-	}
-
-	private void updateValueUntil(int ss, int se, int i, int diff, int si) {
-		if (i < ss || i > se)
-			return;
-
-		st[si] = st[si] + diff;
-		if (se != ss) {
-			int mid = getMid(ss, se);
-			updateValueUntil(ss, mid, i, diff, 2 * si + 1);
-			updateValueUntil(mid + 1, se, i, diff, 2 * si + 2);
+		public SegmentTreeNode(int start, int end) {
+			this.start = start;
+			this.end = end;
+			this.left = null;
+			this.right = null;
+			this.sum = 0;
 		}
 	}
 
+	SegmentTreeNode root = null;
+	
+	public NumArray(int[] nums) {
+		root = buildTree(nums, 0, nums.length - 1);
+	}
+
+	private SegmentTreeNode buildTree(int[] nums, int start, int end) {
+		if (start > end) {
+			return null;
+		} else {
+			SegmentTreeNode ret = new SegmentTreeNode(start, end);
+			if (start == end) {
+				ret.sum = nums[start];
+			} else {
+				int mid = start + (end - start)/2;
+				ret.left = buildTree(nums, start, mid);
+				ret.right = buildTree(nums, mid+1, end);
+				ret.sum = ret.left.sum + ret.right.sum;
+						
+			}
+			return ret;
+		}
+	}
+	
+	void update(int i, int val) {
+		update(root, i, val);
+	}
+	
+	void update(SegmentTreeNode root, int pos, int val) {
+		if (root.start == root.end) {
+			root.sum = val;
+		} else {
+			int mid = root.start + (root.end - root.start) / 2;
+			if (pos <= mid) {
+				update(root.left, pos, val);
+			} else {
+				update(root.right, pos, val);
+			}
+			root.sum = root.left.sum + root.right.sum;
+		}
+	}
+	
 	public int sumRange(int i, int j) {
-		if (i < 0 || j > nums.length - 1 || i > j) {
-			return -1;
+		return sumRange(root,  i, j);
+	}
+	
+	public int sumRange(SegmentTreeNode root, int start, int end) {
+		if (root.end == end && root.start == start) {
+			return root.sum;
+		} else {
+			int mid = root.start + (root.end - root.start) / 2;
+			if (end <= mid) {
+				return sumRange(root.left, start, end);
+			} else if (start >= mid + 1) {
+				return sumRange(root.right, start, end);
+			} else {
+				return sumRange(root.right, mid+1, end) + sumRange(root.left, start, mid);
+			}
 		}
-
-		return getSumUntil(0, nums.length - 1, i, j, 0);
 	}
 
-	private int getSumUntil(int ss, int se, int i, int j, int si) {
-
-		if (i <= ss && j >= se) {
-			return st[si]; // ?
-		}
-
-		if (se < i || ss > j) {
-			return 0;
-		}
-
-		int mid = getMid(ss, se);
-		return getSumUntil(ss, mid, i, j, 2 * si + 1) + getSumUntil(mid + 1, se, i, j, 2 * si + 1);
-	}
 }
-
-
-// Your NumArray object will be instantiated and called as such:
-// NumArray numArray = new NumArray(nums);
-// numArray.sumRange(0, 1);
-// numArray.update(1, 10);
-// numArray.sumRange(1, 2);
