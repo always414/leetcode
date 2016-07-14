@@ -18,12 +18,13 @@ public class Solution {
     				for (char c = 'a'; c <= 'z'; c++) {
     					charArray[i] = c;
     					String newWord = String.valueOf(charArray);
-//    					System.out.println(newWord);
     					if (newWord.equals(endWord)) {
     						return count;
     					}
     					if (wordList.contains(newWord)) {
+//    						System.out.println(newWord);
     						queue.add(newWord);
+    						wordList.remove(newWord);
     					} 
     				}
     				charArray[i] = originalChar;
