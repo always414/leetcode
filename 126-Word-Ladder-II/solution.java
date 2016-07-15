@@ -34,10 +34,13 @@ public class Solution {
         				find = true;
         			}
         		}
-        		
         		if (!find) {
         			queue.addAll(newTransactions);
         		}
+        	}
+        	
+        	if (find) {
+        		break;
         	}
         	wordList.removeAll(levelWord); // delete level words
         }
