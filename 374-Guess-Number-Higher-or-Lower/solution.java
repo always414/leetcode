@@ -13,14 +13,14 @@ public class Solution extends GuessGame {
 			int mid = start + (end - start) / 2;
 			if (guess(mid) == 1) {
 				start = mid;
-			} else if (guess(mid == -1)) {
+			} else if (guess(mid) == -1) {
 				end = mid;
 			} else {
 				return mid;
 			}
 		}
 		
-		return -1;
+		return guess(mid) == 0? mid : -1;
 
 	}
 }
