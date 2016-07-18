@@ -1,5 +1,6 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -16,27 +17,24 @@ public class Solution {
 	List<Integer> res;
     public List<Integer> postorderTraversal(TreeNode root) {
         res = new ArrayList<>();
-        if (root == null) return res;
-        
         Deque<TreeNode> stack = new ArrayDeque<>();
-        stack.add(root);
-        while (!stack.isEmpty()) {
-        	TreeNode node = stack.peekFirst();
-        	if (node.left == null && node.right == null) {
-        		res.add(node.val);
-        		stack.pop();
+        while (!stack.isEmpty() || root != null) {
+        	if (root != null) {
+        		stack.push(root);
+        		//先push parent
+        		res.add(root.val);
+        		//遍历右边
+        		root = root.right;
+        	} else {
+        		//返回上一层便利左边
+        		root = stack.pop().left;
         	}
-        	if (node.right != null){
-        		stack.push(node.right);
-        		node.right = null;
-        	}
-        	if (node.left != null) {
-        		stack.push(node.left);
-        		node.left = null;
-        	}
+        	
         }
-        
 
+        //中右左的顺序，reverse后 左右中。
+        //本质上，reverse preorder
+        Collections.reverse(res);
         return res;
     }
     
