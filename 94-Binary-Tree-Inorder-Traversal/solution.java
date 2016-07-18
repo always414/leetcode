@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -11,20 +13,26 @@ import java.util.List;
  * }
  */
 public class Solution {
-	List<Integer> res;
     public List<Integer> inorderTraversal(TreeNode root) {
-        res = new ArrayList<>();
-        inorderHelper(root);
+    	List<Integer> res = new ArrayList<>();
+    	Deque<TreeNode> stack = new ArrayDeque<>();
+    	while (!stack.isEmpty() || root != null) {
+    		if (root != null) {
+    			//push root and all left side
+    			stack.push(root);
+    			root = root.left;
+    		} else {
+    			//pop from the very left, each pop is a sub root node
+    			//then traverse that node's right child.
+    			root = stack.pop();
+    			res.add(root.val);
+    			root = root.right;
+    		}
+    		
+    	}
+
         
         return res;
         
-    }
-    
-    private void inorderHelper (TreeNode root) {
-    	if (root == null) return;
-    	inorderHelper(root.left);
-    	res.add(root.val);
-    	inorderHelper(root.right);
-    	
     }
 }
