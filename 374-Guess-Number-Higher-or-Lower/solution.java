@@ -6,10 +6,8 @@ import java.util.Random;
       int guess(int num); */
 
 public class Solution extends GuessGame {
-	Random r;
 
 	public int guessNumber(int n) {
-		r = new Random();
 		int start = 0, end = n;
 		int num = pickRandom(0, n);
 
@@ -34,7 +32,7 @@ public class Solution extends GuessGame {
 	private int pickRandom(int start, int end) {
 		if (start < 0 || start > end)
 			return -1;
-		int index = r.nextInt(end - start + 1) + start;
+		int index = start + (end - start) / 2;
 		return index;
 	}
 }
