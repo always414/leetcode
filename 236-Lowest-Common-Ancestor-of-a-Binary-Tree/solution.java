@@ -14,6 +14,7 @@ public class Solution {
     	TreeNode left = lowestCommonAncestor(root.left, p, q);
     	TreeNode right = lowestCommonAncestor(root.right, p, q);
     	
+    	//if right != null && left != null, then q and p are on both side, then return root;
     	return left == null? right : right == null ? left : root;
 //    	return left != null? left : right != null ? right : root;
     }
