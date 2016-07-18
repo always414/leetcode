@@ -8,8 +8,8 @@ import java.util.Random;
 public class Solution extends GuessGame {
 
 	public int guessNumber(int n) {
-		int start = 0, end = n;
-		int num = pickRandom(0, n);
+		int start = 1, end = n;
+		int num = pickRandom(1, n);
 
 		while (true) {
 			if (guess(num) == 1) {
