@@ -20,7 +20,7 @@ public class Solution extends GuessGame {
 			}
 		}
 		
-		return guess(mid) == 0? mid : -1;
+		return guess(start) == 0? start : guess(end) == 0? end : -1;
 
 	}
 }
