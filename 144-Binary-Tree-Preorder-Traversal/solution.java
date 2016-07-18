@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -14,14 +16,18 @@ public class Solution {
 	
     public List<Integer> preorderTraversal(TreeNode root) {
     	List<Integer> res = new ArrayList<>();
-        preOrderHelper(root, res);
-        return res;
+    	Deque<TreeNode> stack = new ArrayDeque<>();
+    	stack.push(root);
+    	
+    	while (!stack.isEmpty()) {
+    		TreeNode node = stack.pop();
+    		if (node == null) continue;
+    		
+    		res.add(node.val);
+			stack.push(node.right);
+    		stack.push(node.left);
+    	}
+    	return res;
     }
     
-    private void preOrderHelper(TreeNode root, List<Integer> list) {
-    	if (root == null) return;
-    	list.add(root.val);
-    	preOrderHelper(root.left, list);
-    	preOrderHelper(root.right, list);
-    }
 }
