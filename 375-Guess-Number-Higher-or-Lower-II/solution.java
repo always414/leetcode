@@ -14,13 +14,13 @@ public class Solution {
     	if (dp[begin][end] != 0) {
     		return dp[begin][end];
     	}
-    	int res = Integer.MAX_VALUE;
+    	int miniMax = Integer.MAX_VALUE;
     	for (int i = begin; i <= end; i++) {
     		int max = Math.max(getRange(begin, i-1), getRange(i + 1, end)) + i;
-    		res = Math.min(res, max);
+    		miniMax = Math.min(miniMax, max);
     	}
     	
-    	dp[begin][end] = res;
-    	return res;
+    	dp[begin][end] = miniMax;
+    	return miniMax;
     }
 }
