@@ -27,7 +27,12 @@ public class Solution {
 		List<Integer> sumDepth = new ArrayList<Integer>();
 		sumDepth.add(0);
 		
-		dfsHelper(nestedList, sumDepth, 1);
+		Deque<NestedInteger> stack = new ArrayDeque<>();
+		for (NestedInteger nest : nestedList) {
+			stack.push(nest);
+		}
+		
+		dfsHelper(stack, sumDepth, 1);
 
 		int res = 0;
 		for (int i = 0; i < sumDepth.size(); i++) {
@@ -38,30 +43,36 @@ public class Solution {
 
 	}
 
-	private void dfsHelper(List<NestedInteger> nestedList, List<Integer> sumDepth, int depth) {
-			for (NestedInteger nest : nestedList) {
-				if (nest.isInteger()) {
-					insertInteger(sumDepth, depth, nest.getInteger());
-				} else {
-					Integer integer = nest.getInteger();
-					List<NestedInteger> nestList = nest.getList();
-
-					if (integer != null) {
-						insertInteger(sumDepth, depth, integer);
+	private void dfsHelper(Deque<NestedInteger> stack, List<Integer> sumDepth, int depth) {
+		while (!stack.isEmpty()) {
+			NestedInteger nest = stack.pop();
+			
+			if (nest.isInteger()) {
+				insertInteger(sumDepth, depth, nest.getInteger());
+			} else {
+				Integer integer = nest.getInteger();
+				List<NestedInteger> nestList = nest.getList();
+				
+				if (integer != null) {
+					insertInteger(sumDepth, depth, integer);
+				}
+				
+				if (nestList != null) {
+					Deque<NestedInteger> newStack = new ArrayDeque<>();
+					for (NestedInteger ni : nestList) {
+						newStack.push(ni);
 					}
-
-					if (nestList != null) {
-						dfsHelper(nestedList, sumDepth, depth + 1);
-					}
+					dfsHelper(newStack, sumDepth, depth + 1);
 				}
 			}
+		}
 	}
 
 	private void insertInteger(List<Integer> sumDepth, int depth, int integer) {
-		if (sumDepth.size() > depth) {
-			sumDepth.add(depth, sumDepth.get(depth) + integer);
+		if (sumDepth.size() >= depth) {
+			sumDepth.add(sumDepth.size() - depth, sumDepth.get(depth) + integer);
 		} else {
-			sumDepth.add(integer);
+			sumDepth.add(0, integer);
 		}
 	}
 }
