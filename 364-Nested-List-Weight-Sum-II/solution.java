@@ -1,5 +1,6 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -26,14 +27,15 @@ public class Solution {
 
 		List<Integer> sumDepth = new ArrayList<Integer>();
 		sumDepth.add(0);
-		
+
 		Deque<NestedInteger> stack = new ArrayDeque<>();
-		for (NestedInteger nest : nestedList) {
-			stack.push(nest);
-		}
-		
+		stack.addAll(nestedList);
+
 		dfsHelper(stack, sumDepth, 1);
 
+		System.out.println(sumDepth);
+		Collections.reverse(sumDepth);
+		sumDepth.add(0, 0);
 		int res = 0;
 		for (int i = 0; i < sumDepth.size(); i++) {
 			res += i * sumDepth.get(i);
@@ -46,22 +48,20 @@ public class Solution {
 	private void dfsHelper(Deque<NestedInteger> stack, List<Integer> sumDepth, int depth) {
 		while (!stack.isEmpty()) {
 			NestedInteger nest = stack.pop();
-			
+
 			if (nest.isInteger()) {
 				insertInteger(sumDepth, depth, nest.getInteger());
 			} else {
 				Integer integer = nest.getInteger();
 				List<NestedInteger> nestList = nest.getList();
-				
+
 				if (integer != null) {
 					insertInteger(sumDepth, depth, integer);
 				}
-				
+
 				if (nestList != null) {
 					Deque<NestedInteger> newStack = new ArrayDeque<>();
-					for (NestedInteger ni : nestList) {
-						newStack.push(ni);
-					}
+					newStack.addAll(nestList);
 					dfsHelper(newStack, sumDepth, depth + 1);
 				}
 			}
@@ -69,10 +69,10 @@ public class Solution {
 	}
 
 	private void insertInteger(List<Integer> sumDepth, int depth, int integer) {
-		if (sumDepth.size() >= depth) {
-			sumDepth.add(sumDepth.size() - depth, sumDepth.get(depth) + integer);
-		} else {
-			sumDepth.add(0, integer);
+		System.out.println(sumDepth);
+		while (depth >= sumDepth.size()) {
+			sumDepth.add(0);
 		}
+		sumDepth.set(depth, sumDepth.get(depth) + integer);
 	}
 }
