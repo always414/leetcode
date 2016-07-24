@@ -42,7 +42,8 @@ public class Solution {
 	}
 
 	private void dfsHelper(List<NestedInteger> nestedList, List<Integer> sumDepth, int depth) {
-		for (NestedInteger nest : nestedList) {
+		for (int i = 0; i < nestedList.size(); i ++) {
+			NestedInteger nest = nestedList.get(i);
 			if (nest.isInteger()) {
 				insertInteger(sumDepth, depth, nest.getInteger());
 			} else {
