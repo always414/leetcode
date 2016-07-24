@@ -33,7 +33,6 @@ public class Solution {
 
 		dfsHelper(stack, sumDepth, 1);
 
-		System.out.println(sumDepth);
 		Collections.reverse(sumDepth);
 		sumDepth.add(0, 0);
 		int res = 0;
@@ -69,7 +68,6 @@ public class Solution {
 	}
 
 	private void insertInteger(List<Integer> sumDepth, int depth, int integer) {
-		System.out.println(sumDepth);
 		while (depth >= sumDepth.size()) {
 			sumDepth.add(0);
 		}
