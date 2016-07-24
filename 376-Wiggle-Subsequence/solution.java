@@ -20,7 +20,7 @@ public class Solution {
     	int count = 1;
     	for (int i = 1; i < nums.length; i++) {
     		int j = 1;
-    		while ((i-j) >= 0 && diff[i-j] == 0) {
+    		while ((i-j) > 0 && diff[i-j] == 0) {
     			j++;
     		}
     		if (diff[i] * diff[i-j] < 0) {
