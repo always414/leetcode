@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Solution {
     public int wiggleMaxLength(int[] nums) {
     	if (nums.length < 2) return nums.length;
@@ -18,14 +20,14 @@ public class Solution {
     	int count = 1;
     	for (int i = 1; i < nums.length; i++) {
     		int j = 1;
-    		while (diff[i-j] == 0) {
+    		while ((i-j) >= 0 && diff[i-j] == 0) {
     			j++;
     		}
-    		if (diff[i] * diff[i-1] < 0) {
+    		if (diff[i] * diff[i-j] < 0) {
     			count ++;
-    		}
+    		} 
     	}
-       
+//       System.out.println(Arrays.toString(diff));
     	return count;
     }
 }
