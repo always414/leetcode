@@ -18,8 +18,8 @@ public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         //use bfs to construct a string
-    	String data = "";
-    	if (root == null) return data;
+    	StringBuilder data = new StringBuilder();
+    	if (root == null) return data.toString();
     	
     	Queue<TreeNode> queue = new ArrayDeque<>();
     	queue.add(root);
@@ -48,10 +48,10 @@ public class Codec {
     				}
     			}
     		}
-    		data += currentLevel.toString();
+    		data.append(currentLevel.toString());
     		currentLevel = nextLevel;
     	}
-    	return data;
+    	return data.toString();
     }
 
     // Decodes your encoded data to tree.
@@ -81,6 +81,7 @@ public class Codec {
     	}
     }
 }
+
 
 // Your Codec object will be instantiated and called as such:
 // Codec codec = new Codec();
