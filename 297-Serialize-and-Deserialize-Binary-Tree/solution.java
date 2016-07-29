@@ -19,6 +19,8 @@ public class Codec {
     public String serialize(TreeNode root) {
         //use bfs to construct a string
     	String data = "";
+    	if (root == null) return data;
+    	
     	Queue<TreeNode> queue = new ArrayDeque<>();
     	queue.add(root);
     	StringBuilder currentLevel = new StringBuilder();
@@ -54,6 +56,9 @@ public class Codec {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
+    	if (data == null || data.length() == 0 || !data.contains(",")) {
+    		return null;
+    	}
     	String[] array = data.split(",");
     	TreeNode[] serial = new TreeNode[array.length];
     	serial[0] = generateNode(array, serial, 0);
