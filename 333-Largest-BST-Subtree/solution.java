@@ -3,33 +3,50 @@
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
 public class Solution {
-	private int max = 0;
-
+	int res = 0;
 	public int largestBSTSubtree(TreeNode root) {
-
-		largestBSTSubtree(root.left, root.val, Long.MIN_VALUE);
-		largestBSTSubtree(root.right, Long.MAX_VALUE, root.val);
-
-		return max;
+		dfs(root);
+		return res;
 	}
 
+	private void dfs(TreeNode root) {
+		if (root == null)
+			return;
+		int d = largestBSTSubtree(root, Long.MAX_VALUE, Long.MIN_VALUE);
+
+		if (d != -1) {
+			res = Math.max(d, res);
+			return;
+		}
+
+		dfs(root.left);
+		dfs(root.right);
+	}
+
+	/**
+	 * Returns the largestBSTTree of root and update global max value
+	 * 
+	 * @param root
+	 * @param upperbound
+	 * @param lowerbound
+	 * @return -1 if root is not in valid range, or subtree of root is not valid
+	 *         BST; 0 if root is null; tree size of root if it's a valid bst
+	 */
 	private int largestBSTSubtree(TreeNode root, long upperbound, long lowerbound) {
 		if (root == null)
 			return 0;
-
-		if (root.val <= lowerbound || root.val >= upperbound) {
+		if (root.val < lowerbound || root.val > upperbound) {
 			return -1;
 		}
 
 		int left = largestBSTSubtree(root.left, root.val, lowerbound);
-		int right = largestBSTSubtree(root.right, upperbound, root.val);
-
-		if (left == -1 || right == -1) {
+		if (left == -1)
 			return -1;
-		}
 
-		max = Math.max(left + right + 1, max);
+		int right = largestBSTSubtree(root.right, upperbound, root.val);
+		if (right == -1)
+			return -1;
+
 		return left + right + 1;
-
 	}
 }
