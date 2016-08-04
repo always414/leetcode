@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Solution {
-	Set<String> res;
+	List<String> res;
 
 	public List<String> generateParenthesis(int n) {
-		res = new HashSet<>();
+		res = new ArrayList<>();
 		helper(n, 0, new StringBuilder());
 		return new ArrayList<>(res);
 	}
@@ -21,13 +21,11 @@ public class Solution {
 			res.add(sb.toString());
 			return;
 		}
-		
+
 		if (rest > 0) {
-			for (int tmp = 1; tmp <= rest; tmp++) {
-				sb.append(")");
-				helper(n, rest - tmp, sb);
-			}
-			sb.delete(sb.length() - rest, sb.length());
+			sb.append(")");
+			helper(n, rest - 1, sb);
+			sb.delete(sb.length() - 1, sb.length());
 		}
 
 		sb.append("(");
