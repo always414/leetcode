@@ -9,6 +9,10 @@ public class Solution {
 		return res;
 	}
 
+     /**
+      * dfs search each node from root to leaf, and if find the largest subtree, end recursion.
+      * @param root
+      */
 	private void dfs(TreeNode root) {
 		if (root == null)
 			return;
