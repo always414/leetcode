@@ -5,15 +5,14 @@ import java.util.List;
 import java.util.Set;
 
 public class Solution {
-	List<String> res;
 
 	public List<String> generateParenthesis(int n) {
-		res = new ArrayList<>();
-		helper(n, 0, new StringBuilder());
-		return new ArrayList<>(res);
+		List<String> res = new ArrayList<>();
+		helper(n, 0, new StringBuilder(), res);
+		return res;
 	}
 
-	private void helper(int n, int rest, StringBuilder sb) {
+	private void helper(int n, int rest, StringBuilder sb, List<String> res) {
 		if (n < 0)
 			return;
 
@@ -24,12 +23,12 @@ public class Solution {
 
 		if (rest > 0) {
 			sb.append(")");
-			helper(n, rest - 1, sb);
+			helper(n, rest - 1, sb, res);
 			sb.delete(sb.length() - 1, sb.length());
 		}
 
 		sb.append("(");
-		helper(n - 1, rest + 1, sb);
+		helper(n - 1, rest + 1, sb, res);
 		sb.delete(sb.length() - 1, sb.length());
 	}
 
