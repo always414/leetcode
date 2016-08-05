@@ -16,9 +16,8 @@ public class Solution {
     		
     		List<List<Integer>> newSub = new ArrayList<>();
     		for (int j = result.size() - size; j < result.size(); j++) {
-    			List<Integer> newList = new ArrayList<>(result.get(j));
-    			newList.add(nums[i]);
-    			newSub.add(newList);
+    			newSub.add(new ArrayList<>(result.get(j)));
+    			newSub.get(newSub.size() - 1).add(nums[i]);
     		}
     		result.addAll(newSub);
     	}
