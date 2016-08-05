@@ -1,23 +1,22 @@
-public class Solution {
-	int min = Integer.MAX_VALUE;
+import java.util.Arrays;
 
+public class Solution {
 	//dfs or dynamic programming
 	public int minCut(String s) {
-		dfs(s, 0);
-		return min;
-	}
-
-	private void dfs(String s, int cut) {
-		if (s.length() == 0) {
-			min = Math.min(cut - 1, min);
-			return;
-		}
-
-		for (int i = 1; i <= s.length(); i++) {
-			if (isPalindrome(s.substring(0, i))) {
-				dfs(s.substring(i), cut + 1);
+		int[] matrix = new int[s.length() + 1];
+		Arrays.fill(matrix, Integer.MAX_VALUE);
+		matrix[0] = 0;
+		
+		for (int i = 1; i < matrix.length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (matrix[j] == Integer.MAX_VALUE) continue;
+				
+				if (isPalindrome(s.substring(j, i))) {
+					matrix[i] = Math.min(matrix[j] + 1, matrix[i]);
+				}
 			}
 		}
+		return matrix[matrix.length - 1] - 1;
 	}
 
 	private boolean isPalindrome(String s) {
@@ -25,7 +24,7 @@ public class Solution {
 			return false;
 		if (s.length() == 1)
 			return true;
-
+		
 		char[] chars = s.toCharArray();
 		for (int i = 0, j = chars.length - 1; i <= j; i++, j--) {
 			if (chars[i] != chars[j])
