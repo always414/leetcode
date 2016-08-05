@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Solution {
 	public List<List<Integer>> permuteUnique(int[] nums) {
-		Set<List<Integer>> res = new HashSet<>();
+		List<List<Integer>> res = new ArrayList<>();
 		List<Integer> sub = new ArrayList<>();
 		for (int i : nums) {
 			sub.add(i);
@@ -16,15 +16,19 @@ public class Solution {
 		return new ArrayList<>(res);
 	}
 
-	private void permuteHelper(Set<List<Integer>> result, List<Integer> sub, int start) {
+	private void permuteHelper(List<List<Integer>> result, List<Integer> sub, int start) {
 		if (start > sub.size())
 			return;
 
 		if (start == sub.size()) {
 			result.add(new ArrayList<>(sub));
+			return;
 		}
-
+		Set<Integer> swp = new HashSet<>();
+		
 		for (int i = start; i < sub.size(); i++) {
+			if (swp.contains(sub.get(i))) continue;
+			swp.add(sub.get(i));
 			Collections.swap(sub, start, i);
 			permuteHelper(result, sub, start + 1);
 			Collections.swap(sub, start, i);
