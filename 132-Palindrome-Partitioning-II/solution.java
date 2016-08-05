@@ -9,7 +9,7 @@ public class Solution {
 		
 		for (int i = 1; i < matrix.length; i++) {
 			for (int j = 0; j < i; j++) {
-				if (matrix[j] == Integer.MAX_VALUE || matrix[j] + 1 > matrix[i]) continue;
+				if (matrix[j] == Integer.MAX_VALUE || matrix[j] + 1 => matrix[i]) continue;
 				
 				if (isPalindrome(s.substring(j, i))) {
 					matrix[i] = Math.min(matrix[j] + 1, matrix[i]);
