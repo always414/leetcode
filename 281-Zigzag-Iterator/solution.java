@@ -10,8 +10,14 @@ public class ZigzagIterator {
 	Queue<Iterator<Integer>> zigzagIterator;
 	public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
 		zigzagIterator = new ArrayDeque<>();
-		zigzagIterator.add(v1.iterator());
-		zigzagIterator.add(v2.iterator());
+		
+		if (v1 != null && !v1.isEmpty()) {
+			zigzagIterator.add(v1.iterator());
+		}
+		
+		if (v2 != null && !v2.isEmpty()) {
+			zigzagIterator.add(v2.iterator());
+		}
 	}
 
 	public int next() {
