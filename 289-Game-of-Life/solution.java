@@ -38,8 +38,6 @@ public class Solution {
 				}
 			}
 		}
-		
-		System.out.println(Arrays.deepToString(board));
 	}
 
 	private int getLiveNeighbor(int[][] board, int i, int j) {
