@@ -9,9 +9,15 @@ public class Solution {
 			return res;
 		
 		if (nums.length == 0) {
-			res.add(lower + "->" + upper);
+			StringBuilder sb = new StringBuilder();
+			sb.append(lower);
+			if (lower != upper) {
+				sb.append("->").append(upper);
+			}
+			res.add(sb.toString());
+			return res;
 		}
-
+		
 		for (int i = 0; i <= nums.length ; i++) {
 			StringBuilder sb = new StringBuilder();
 			int lowerbound = Integer.MAX_VALUE;
