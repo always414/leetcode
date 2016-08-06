@@ -1,5 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
@@ -17,12 +16,11 @@ public class ZigzagIterator {
 
 	public int next() {
 		Iterator<Integer> nextIterator = zigzagIterator.poll();
+		Integer res = nextIterator.next();
 		if (nextIterator.hasNext()) {
-			zigzagIterator.offer(nextIterator);
-			return nextIterator.next();
-		} else {
-			return next();
+			zigzagIterator.add(nextIterator);
 		}
+		return res;
 	}
 
 	public boolean hasNext() {
