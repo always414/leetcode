@@ -10,54 +10,39 @@ public class Solution {
 		// number
 		// then update the number to 0 and 1
 		// prevent recursion and side effect
+		int m = board.length;
+		int n = board[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				int lives = getLiveNeighbor(board, m, n, i, j);
+				if (board[i][j] == 1 && lives >= 2 && lives <= 3) {
+					board[i][j] = 3;
+				}
 
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j] == 1) {
-					board[i][j] += getLiveNeighbor(board, i, j);
-				} else {
-					board[i][j] -= getLiveNeighbor(board, i, j);
+				if (board[i][j] == 0 && lives == 3) {
+					board[i][j] = 2;
 				}
 			}
 		}
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j] > 0) {
-					if (board[i][j] == 3 || board[i][j] == 4) {
-						board[i][j] = 1;
-					} else {
-						board[i][j] = 0;
-					}
-				} else {
-					if (board[i][j] == -3) {
-						board[i][j] = 1;
-					} else {
-						board[i][j] = 0;
-					}
-				}
+				board[i][j] >>= 1;
 			}
 		}
+
 	}
 
-	private int getLiveNeighbor(int[][] board, int i, int j) {
-		int[] move = new int[] { 0, 1, 0, -1, 0 };
-		int[] moveCorner = new int[] { 1, 1, -1, -1, 1 };
+	private int getLiveNeighbor(int[][] board, int m, int n, int i, int j) {
 		int count = 0;
 
-		for (int k = 0; k < move.length - 1; k++) {
-			if (inRange(board, i + move[k], j + move[k + 1])) {
-				count += board[i + move[k]][j + move[k + 1]] > 0 ? 1 : 0;
-			}
-			if (inRange(board, i + moveCorner[k], j + moveCorner[k + 1])) {
-				count += board[i + moveCorner[k]][j + moveCorner[k + 1]] > 0 ? 1 : 0;
+		for (int x = Math.max(i - 1, 0); x <= Math.min(i + 1, m - 1); x++) {
+			for (int y = Math.max(j - 1, 0); y <= Math.min(j + 1, n - 1); y++) {
+				count += board[x][y] & 1;
 			}
 		}
-
+		count -= board[i][j] & 1;
 		return count;
 	}
 
-	private boolean inRange(int[][] board, int i, int j) {
-		return i >= 0 && j >= 0 && i < board.length && j < board[0].length;
-	}
 }
