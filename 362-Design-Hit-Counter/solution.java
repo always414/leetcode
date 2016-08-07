@@ -22,7 +22,7 @@ public class HitCounter {
         @param timestamp - The current timestamp (in seconds granularity). */
     public int getHits(int timestamp) {
         //get counts
-    	while (timestamp - queue.peek() > 300) {
+    	while (!queue.isEmpty() && timestamp - queue.peek() >= 300) {
     		queue.poll();
     	}
     	return queue.size();
