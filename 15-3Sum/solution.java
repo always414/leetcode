@@ -1,31 +1,33 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-    	Arrays.sort(nums);
-    	List<List<Integer>> res = new ArrayList<>();
-        for (int i = 0; i < nums.length - 2; i++) {
-        	if (i >=1 && nums[i] == nums[i-1]) continue;
-        	for (int j = nums.length - 1; j > i + 1; j -- ) {
-        		for (int k = i + 1; k < j; k ++) {
-        			if (nums[i] + nums[j] + nums[k] > 0) {
-        				break;
-        			} else if (nums[i] + nums[j] + nums[k] == 0) {
-        				res.add(new ArrayList<Integer>(Arrays.asList(nums[i], nums[k], nums[j])));
-        			}
-        			
-        			while (k < j - 1 && nums[k] == nums[k + 1]) {
-        				k++;
-        			}
-        		}
-        		while (j > i + 2 && nums[j] == nums[j-1]) {
-        			j--;
-        		}
-        	}
-        }
-        
-        return res;
-    }
+	public List<List<Integer>> threeSum(int[] nums) {
+		Arrays.sort(nums); // nlogn
+		List<List<Integer>> res = new ArrayList<>();
+		for (int i = 0; i < nums.length - 2; i++) {
+			//fix i and two pointer for the rest;
+			if (i == 0 || i > 0 && nums[i] != nums[i-1]) {
+				int lo = i + 1, hi = nums.length - 1, sum = 0 - nums[i];
+				while (lo < hi) {
+					System.out.println(lo + " " + hi);
+					if (nums[lo] + nums[hi] == sum) {
+						res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+						while (lo < hi && nums[lo] == nums[lo+1]) lo ++;
+						while (lo < hi && nums[hi] == nums[hi-1]) hi --;
+						lo ++;
+						hi --;
+					} else if (nums[lo] + nums[hi] < sum) {
+						lo ++;
+					} else {
+						hi --;
+					}
+				}
+			}
+		}
+		return res;
+	}
 }
