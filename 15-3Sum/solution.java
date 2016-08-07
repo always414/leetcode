@@ -8,23 +8,18 @@ public class Solution {
 	public List<List<Integer>> threeSum(int[] nums) {
 		Arrays.sort(nums); // nlogn
 		List<List<Integer>> res = new ArrayList<>();
+
 		for (int i = 0; i < nums.length - 2; i++) {
-			//fix i and two pointer for the rest;
-			if (i == 0 || i > 0 && nums[i] != nums[i-1]) {
-				int lo = i + 1, hi = nums.length - 1, sum = 0 - nums[i];
-				while (lo < hi) {
-					System.out.println(lo + " " + hi);
-					if (nums[lo] + nums[hi] == sum) {
-						res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
-						while (lo < hi && nums[lo] == nums[lo+1]) lo ++;
-						while (lo < hi && nums[hi] == nums[hi-1]) hi --;
-						lo ++;
-						hi --;
-					} else if (nums[lo] + nums[hi] < sum) {
-						lo ++;
-					} else {
-						hi --;
+			Set<Integer> set = new HashSet<>();
+			for (int k = nums.length - 1; k > i; k--) {
+				if (set.contains(nums[k])) {
+					if (!res.contains(Arrays.asList(nums[i], nums[k], 0 - nums[i] - nums[k]))) {
+						res.add(Arrays.asList(nums[i], nums[k], 0 - nums[i] - nums[k]));
 					}
+					set.remove(nums[k]);
+				} else {
+					int target = 0 - nums[i] - nums[k];
+					set.add(target);
 				}
 			}
 		}
