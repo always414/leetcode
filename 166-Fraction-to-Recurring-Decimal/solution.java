@@ -1,72 +1,70 @@
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class Solution {
-
 	public String fractionToDecimal(int numerator, int denominator) {
-		if (denominator == 0) {
+		long xnumerator = numerator;
+		long xdenominator = denominator;
+
+		if (xdenominator == 0) {
 			return "";
 		}
 
-		if (numerator == 0) {
-			return "" + 0;
+		if (xnumerator == 0) {
+			return "0";
 		}
 
-		boolean negative = numerator * denominator < 0;
-		denominator = Math.abs(denominator);
-		numerator = Math.abs(numerator);
+		boolean negative = (numerator ^ denominator) >>> 31 == 1;
+		xnumerator = Math.abs(xnumerator);
+		xdenominator = Math.abs(xdenominator);
 
-		Map<Integer, Integer> map = new LinkedHashMap<>();
 		StringBuilder sb = new StringBuilder();
-		boolean dot = false;
-		int div = 0;
-		int mod = 0;
+		int dotPos = 0;
+		long div = xnumerator / xdenominator;
+		long mod = xnumerator % xdenominator;
 
-		while (numerator != 0) {
-			if (numerator >= denominator) {
-				if (map.containsKey(numerator)) {
-					// find infinite loop
-					StringBuilder loop = new StringBuilder();
-					for (Entry<Integer, Integer> entry : map.entrySet()) {
-						if (entry.getKey() == numerator || loop.length() > 0) {
-							loop.append(entry.getValue());
-						}
+		Map<Long, Long> pair = new LinkedHashMap<>();
+		while (xnumerator != 0) {
+			div = xnumerator / xdenominator;
+			mod = xnumerator % xdenominator;
+			if (pair.containsKey(xnumerator)) {
+				// find infinite loop
+				StringBuilder loop = new StringBuilder();
+				for (Entry<Long, Long> entry : pair.entrySet()) {
+					if (entry.getKey() == xnumerator || loop.length() > 0) {
+						loop.append(entry.getValue());
 					}
-					String l = loop.toString();
-					String[] res = sb.toString().split("\\."); // regex . means any character, \\. is literal dot
-					if (res[1].endsWith(l)) {
-						res[1] = res[1].replace(l, "(" + l + ")");
-					} else {
-						if (l.endsWith(res[1])) {
-							l = l.substring(0, l.length() - res[1].length());
-							res[1] = "(".concat(res[1]).concat(l).concat(")");
-						}
-					}
-					sb = new StringBuilder().append(res[0]).append(".").append(res[1]);
-					break;
-
-				} else {
-					div = numerator / denominator;
-					mod = numerator % denominator;
-					map.put(numerator, div);
-					sb.append(div);
-					numerator = mod;
 				}
+				StringBuilder inBrace = new StringBuilder("()");
+				for (int i = loop.length() - 1, j = sb.length() - 1; i >= 0 && j >= dotPos; i--, j--) {
+					if (loop.charAt(i) != sb.charAt(j))
+						break;
+
+					inBrace.insert(1, loop.charAt(i));
+				}
+				sb.delete(sb.length() - inBrace.length() + 2, sb.length());
+				loop.delete(loop.length() - inBrace.length() + 2, loop.length());
+				inBrace.insert(inBrace.length() - 1, loop);
+				sb.append(inBrace);
+				break;
 			} else {
-				if (sb.length() == 0) {
-					sb.append(0);
+				pair.put(xnumerator, div);
+				sb.append(div);
+				xnumerator = mod * 10;
+				if (xnumerator != 0 && dotPos == 0 && sb.length() > 0) {
+					dotPos = sb.length();
 				}
-				if (!dot) {
-					sb.append(".");
-					dot = true;
-				}
-				numerator *= 10;
 			}
 		}
+
+		if (dotPos != 0) {
+			sb.insert(dotPos, ".");
+		}
+
 		if (negative) {
 			sb.insert(0, "-");
 		}
 		return sb.toString();
-
 	}
 }
