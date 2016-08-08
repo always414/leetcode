@@ -18,7 +18,12 @@ public class RandomizedSet {
 	 * contain the specified element.
 	 */
 	public boolean insert(int val) {
-		return map.putIfAbsent(val, list.size()) == null ? list.add(val) : false;
+		if (map.containsKey(val)) {
+			return false;
+		} else {
+			map.put(val, list.size());
+			return list.add(val);
+		}
 	}
 
 	/**
