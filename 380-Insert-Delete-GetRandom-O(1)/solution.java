@@ -34,10 +34,12 @@ public class RandomizedSet {
 		if (!map.containsKey(val)) {
 			return false;
 		}
-		
+
 		Integer index = map.get(val);
-		Collections.swap(list, index, list.size() - 1);
-		map.put(list.get(index), index);
+		if (index < list.size() - 1) {
+			list.set(index, list.get(list.size() - 1));
+			map.put(list.get(index), index);
+		}
 		list.remove(list.size() - 1);
 		map.remove(val);
 
