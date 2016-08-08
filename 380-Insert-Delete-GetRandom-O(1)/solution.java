@@ -31,8 +31,17 @@ public class RandomizedSet {
 	 * specified element.
 	 */
 	public boolean remove(int val) {
-		Integer index = map.remove(val);
-		return index == null ? false : list.remove((int) index) != null;
+		if (!map.containsKey(val)) {
+			return false;
+		}
+		
+		Integer index = map.get(val);
+		Collections.swap(list, index, list.size() - 1);
+		map.put(list.get(index), index);
+		list.remove(list.size() - 1);
+		map.remove(val);
+
+		return true;
 	}
 
 	/** Get a random element from the set. */
