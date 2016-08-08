@@ -9,19 +9,19 @@ public class Solution {
 
 		int[] bitWords = new int[words.length];
 		for (int i = 0; i < words.length; i++) {
-			char[] chars = new char[26];
-			Arrays.fill(chars, '0');
-			for (int j = 0; j < words[i].length(); j++) {
-				chars[25 - words[i].charAt(j) + 'a'] = '1';
+			String tmp = words[i];
+			bitWords[i] = 0;
+			for (int j = 0; j < tmp.length(); j++) {
+				bitWords[i] |= 1 << (tmp.charAt(j) - 'a'); // beautiful, bitWords[i] = 0, 在字母位上 |= 1 
+				// 1 << 位数 低位补0
 			}
-			bitWords[i] = Integer.parseInt(String.valueOf(chars), 2);
 		}
 
 		for (int i = 0; i < bitWords.length - 1; i++) {
 			for (int j = i + 1; j < bitWords.length; j++) {
-				if (Integer.bitCount(bitWords[i]) + Integer.bitCount(bitWords[j]) == Integer
-						.bitCount(bitWords[i] ^ bitWords[j])) {
-					res = Math.max(res, words[i].length() * words[j].length());
+				if ((bitWords[i] & bitWords[j]) == 0 && words[i].length() * words[j].length() > res) {
+					res = words[i].length() * words[j].length();
+					// & if == 0, then no dup chars
 				}
 			}
 		}
