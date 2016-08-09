@@ -1,7 +1,7 @@
 public class Solution {
 	public boolean isReflected(int[][] points) {
-		if (points == null || points.length < 2 || point[0].length < 2) {
-			return false;
+		if (points == null || points.length < 2 || points[0].length < 2) {
+			return true;
 		}
 		// find y
 		int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
@@ -13,10 +13,10 @@ public class Solution {
 				maxX = points[i][0];
 			}
 		}
-		int y = (minX + maxX) / 2;
 		
+		double y = (minX + maxX) / 2;
 		
-		int dist = 0;
+		double dist = 0;
 		for (int i = 0; i < points.length; i++) {
 			dist ^= Math.abs(y - points[i][0]);
 			dist ^= points[i][1];
