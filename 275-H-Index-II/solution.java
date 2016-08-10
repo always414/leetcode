@@ -22,7 +22,7 @@ public class Solution {
 			if (citations[mid] < len - mid) {
 				start = mid + 1;
 			} else {
-				end = mid;
+				end = mid - 1;
 			}
 		}
 
