@@ -1,43 +1,45 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.BitSet;
 
 public class PhoneDirectory {
 
 	private final int max;
-	Set<Integer> set;
+	private int smallestFreeIndex;
+	BitSet bitset;
     /** Initialize your data structure here
         @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
     public PhoneDirectory(int maxNumbers) {
-        max = maxNumbers;
-        set = new HashSet<>(max);
-        for (int i = 0; i < max; i++) {
-        	set.add(i);
-        }
+    	this.bitset = new BitSet(maxNumbers);
+    	this.max = maxNumbers;
     }
     
     /** Provide a number which is not assigned to anyone.
         @return - Return an available number. Return -1 if none is available. */
     public int get() {
-    	if (set.isEmpty()) {
+    	if (smallestFreeIndex == max) {
     		return -1;
     	}
     	
-    	int num = set.iterator().next();
-    	set.remove(num);
+    	int num = smallestFreeIndex;
+    	bitset.set(smallestFreeIndex);
+    	smallestFreeIndex = bitset.nextClearBit(smallestFreeIndex);
     	return num;
     }
     
     /** Check if a number is available or not. */
     public boolean check(int number) {
-        return !set.isEmpty() && set.contains(number);
+        return bitset.get(number) == false;
     }
     
     /** Recycle or release a number. */
     public void release(int number) {
-        if (set.size() == max) {
-        	return;
-        }
-        set.add(number);
+    	if (bitset.get(number) == false) {
+    		return;
+    	}
+    	bitset.clear(number);
+    	if (number < smallestFreeIndex) {
+    		smallestFreeIndex = number;
+    	}
+    	
     }
 }
 
