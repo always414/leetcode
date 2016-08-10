@@ -18,7 +18,6 @@ public class Solution {
 	}
 
 	private String generateWord(char[] chars, int binaryRepresentation) {
-		System.out.println(Integer.toBinaryString(binaryRepresentation));
 		int count = 0;
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < chars.length; i++) {
