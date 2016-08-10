@@ -6,39 +6,30 @@ public class Solution {
 		// bit manipulation -> 000, 111, 001, 110 ....
 		// if 1 -> abbrev
 
-		int n = word.length();
-		int size = (int) Math.pow(2, n);
-		char[] chars = word.toCharArray();
+		
 		List<String> result = new ArrayList<>();
+		int n = word.length();
 
-		for (int i = 0; i < size; i++) {
-			result.add(generateWord(chars, i));
+		//mask < (1<<n) -> mask < 2^n
+		for (int mask = 0; mask < (1<<n); mask++) {
+			int count = 0;
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i <= n; i++) {
+				if (((1 << i) & mask) > 0) { // beautiful （1 << i） & mask  检查第i位是否为1
+					count ++;
+				} else {
+					if (count != 0) {
+						sb.append(count);
+						count = 0;
+					}
+					
+					if (i < n) sb.append(word.charAt(i));
+				}
+			}
+			
+			result.add(sb.toString());
 		}
+		
 		return result;
 	}
-
-	private String generateWord(char[] chars, int binaryRepresentation) {
-		int count = 0;
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < chars.length; i++) {
-			int abbrev = binaryRepresentation & 1;
-			binaryRepresentation >>= 1;
-			if (abbrev == 1) {
-				// abbrev
-				count++;
-			} else {
-				// no abbrev, deal with count
-				if (count != 0) {
-					sb.append(count);
-					count = 0;
-				}
-				sb.append(chars[i]);
-			}
-		}
-		if (count != 0) {
-			sb.append(count);
-		}
-		return sb.toString();
-	}
-
 }
