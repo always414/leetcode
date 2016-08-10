@@ -18,7 +18,7 @@ public class Solution {
 	}
 
 	private void dfs(String departure){
-	    PriorityQueue arrivals = map.get(departure);
+	    PriorityQueue<String> arrivals = flights.get(departure);
 	
     	while (arrivals != null && !arrivals.isEmpty()) {
     	    dfs(arrivals.poll());
