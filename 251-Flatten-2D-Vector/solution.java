@@ -4,8 +4,8 @@ public class Vector2D implements Iterator<Integer> {
 	private Iterator<List<Integer>> itr;
 	private Iterator<Integer> subItr;
     public Vector2D(List<List<Integer>> vec2d) {
-        itr = (vec2d == null)? null : vec2d.iterator();
-        subItr = (itr == null)? null : itr.next().iterator();
+        itr = (vec2d == null || vec2d.isEmpty())? null : vec2d.iterator();
+        subItr = null;
     }
 
     @Override
@@ -15,11 +15,21 @@ public class Vector2D implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-    	if (subItr == null) return false;
-        while (!subItr.hasNext() && itr.hasNext()) {
-        	subItr = itr.next().iterator();
-        }
-        return subItr.hasNext();
+    	if (itr == null) return false;
+    	
+    	if (subItr.hasNext()) {
+    		return true;
+    	} else {
+    		while (itr.hasNext()) {
+    			List<Integer> subList = itr.next();
+    			if (!subList.isEmpty()) {
+    				subItr = subList.iterator();
+    				break;
+    			}
+    		}
+    		return subItr.hasNext();
+    	}
+    	
     }
 }
 
