@@ -32,6 +32,8 @@ public class NestedIterator implements Iterator<Integer> {
 	@Override
 	public Integer next() {
 		Iterator<NestedInteger> itr = stack.poll();
+					System.out.println("hasnext:" + itr.hasNext());
+
 		next = itr.next();
 		System.out.println("next" + next);
 		if (next.isInteger()) {
