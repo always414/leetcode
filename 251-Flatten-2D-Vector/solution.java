@@ -32,7 +32,7 @@ public class Vector2D implements Iterator<Integer> {
 				break;
 			}
 		}
-		return subItr.hasNext();
+		return subItr != null && subItr.hasNext();
 	}
 }
 
