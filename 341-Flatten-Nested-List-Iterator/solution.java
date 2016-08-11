@@ -50,7 +50,7 @@ public class NestedIterator implements Iterator<Integer> {
 		while (!stack.isEmpty() && !stack.peek().hasNext()) {
 			stack.poll();
 		}
-		return !stack.isEmpty();
+		return !stack.isEmpty() && stack.peek().hasNext();
 	}
 }
 
