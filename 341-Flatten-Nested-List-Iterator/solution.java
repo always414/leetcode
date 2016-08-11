@@ -26,35 +26,23 @@ public class NestedIterator implements Iterator<Integer> {
 		if (nestedList != null)
 			stack.push(nestedList.iterator());
 		next = null;
-
 	}
 
 	@Override
 	public Integer next() {
-		Iterator<NestedInteger> itr = stack.poll();
-					System.out.println("hasnext:" + itr.hasNext());
-
-		next = itr.next();
-		System.out.println("next" + next);
-		if (next.isInteger()) {
-			stack.push(itr);
-			return next.getInteger();
-		} else {
-			stack.push(itr);
-			stack.push(next.getList().iterator());
-			return next();
-		}
+		//next 只return stack的值，如果调用自身会出问题。在hasnext处理好null的问题
+		return next == null? null : next.getInteger();
 	}
 
 	@Override
 	public boolean hasNext() {
 		while (!stack.isEmpty()) {
-			Iterator<NestedInteger> itr = stack.peek();
-			System.out.println("hasnext:" + itr.hasNext());
-			if (!itr.hasNext()) {
-				stack.poll();
+			if (!stack.peek().hasNext()) {
+				stack.pop();
+			} else if ((next = stack.peek().next()).isInteger()){ 
+				return true;
 			} else {
-				break;
+				stack.push(next.getList().iterator());
 			}
 		}
 		return !stack.isEmpty();
