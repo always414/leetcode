@@ -40,7 +40,7 @@ public class Solution {
 				stack.push("" + num);
 			} else if (!stack.isEmpty() && stack.peek().equals("/")) {
 				stack.pop();
-				Integer num = Integer.parseInt(stack.pop()) / Integer.parseInt(expression.get(i));
+				Integer num = Integer.parseInt(expression.get(i)) / Integer.parseInt(stack.pop());
 				stack.push("" + num);
 			} else {
 				stack.push(expression.get(i));
