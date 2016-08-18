@@ -22,8 +22,7 @@ public class Solution {
 					expression.add(s.substring(numstart, i));
 				}
 				numstart = i + 1;
-			}
-			if (operator.contains(s.charAt(i))) {
+			} else if (operator.contains(s.charAt(i))) {
 				expression.add(s.substring(numstart, i));
 				expression.add("" + s.charAt(i));
 				numstart = i + 1;
@@ -31,29 +30,45 @@ public class Solution {
 				expression.add(s.substring(numstart, i + 1));
 			}
 		}
-		Deque<String> stack = new ArrayDeque<>();
-		for (int i = expression.size() - 1; i >= 0; i--) {
-			if (expression.get(i).equals("")) continue;
-			if (!stack.isEmpty() && stack.peek().equals("*")) {
-				stack.pop();
-				Integer num = Integer.parseInt(stack.pop()) * Integer.parseInt(expression.get(i));
-				stack.push("" + num);
-			} else if (!stack.isEmpty() && stack.peek().equals("/")) {
-				stack.pop();
-				Integer num = Integer.parseInt(expression.get(i)) / Integer.parseInt(stack.pop());
-				stack.push("" + num);
-			} else {
-				stack.push(expression.get(i));
+
+		// first round, calculate * and /
+		for (int i = 0; i < expression.size() && expression.size() > 1; i++) {
+			if (expression.get(i).isEmpty()) {
+				expression.remove(i);
+				i--;
+				continue;
+			}
+
+			if (expression.get(i).equals("*") || expression.get(i).equals("/")) {
+				Integer left = Integer.parseInt(expression.get(i - 1));
+				boolean multiple = expression.get(i).equals("*");
+				Integer right = Integer.parseInt(expression.get(i + 1));
+				Integer res = multiple ? left * right : left / right;
+
+				expression.remove(i + 1);
+				expression.remove(i);
+				expression.remove(i - 1);
+				i--;
+				expression.add(i, "" + res);
 			}
 		}
-		while (stack.size() > 1) {
-			Integer num1 = Integer.parseInt(stack.pop());
-			boolean plus = stack.pop().equals("+");
-			Integer num2 = Integer.parseInt(stack.pop());
-			Integer res = plus ? num1 + num2 : num2 - num1;
-			stack.push("" + res);
+
+		// second round, calculate + and -
+		for (int i = 0; i < expression.size() && expression.size() > 1; i++) {
+			if ("+-".contains(expression.get(i))) {
+				Integer left = Integer.parseInt(expression.get(i - 1));
+				boolean plus = expression.get(i).equals("+");
+				Integer right = Integer.parseInt(expression.get(i + 1));
+				Integer res = plus ? left + right : left - right;
+
+				expression.remove(i + 1);
+				expression.remove(i);
+				expression.remove(i - 1);
+				i--;
+				expression.add(i, "" + res);
+			}
 		}
 
-		return Integer.parseInt(stack.pop());
+		return Integer.parseInt(expression.get(0));
 	}
 }
