@@ -16,9 +16,7 @@ public class Solution {
 				i++;
 			}
 			array.add(num);
-			if (num * 10 <= n) {
-				backtrackingHelper(n, num * 10, array);
-			}
+			backtrackingHelper(n, num * 10, array);
 			num ++;
 		}
 	}
