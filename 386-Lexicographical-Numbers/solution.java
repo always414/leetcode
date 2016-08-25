@@ -34,12 +34,19 @@ public class Solution {
 			}
 		};
 		
-		
 		List<Integer> array = new ArrayList<>();
 		for (int i = 1; i <= n; i++) {
 			array.add(i);
 		}
 		array.sort(c);
+//		PriorityQueue<Integer> pq = new PriorityQueue<>(c);
+//		for (int i = 1; i <= n; i++) {
+//			pq.add(i);
+//		}
+//		while (!pq.isEmpty()) {
+//			System.out.println(pq.poll());
+//		}
+		
 		return array;
     }
 }
