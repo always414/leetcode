@@ -27,7 +27,6 @@ public class Solution {
 			
 		}
 		
-		System.out.println(Arrays.toString(dp));
 		return max;
 
 	}
