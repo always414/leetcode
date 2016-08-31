@@ -1,6 +1,14 @@
 public class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        return magazine.startWith(ransomNote);
+        while (magazine.length() > 0) {
+            if (magazine.startsWith(ransomNote) {
+                return true;
+            } else {
+                magazine = magazine.subString(1);
+            }
+        }
+        
+        return false;
         
         
     }
